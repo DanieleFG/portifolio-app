@@ -1,8 +1,10 @@
 <script setup>
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 import ModalContato from "../components/ModalContato.vue"
 
 const isModalOpen = ref(false)
+const displayText = ref("")
+const fullText = "Hi! Daniele Ferreira Galvão"
 
 const downloadCvc = () => {
   const pdfPath = new URL("../assets/DanieleGalvao-cv-2025.pdf", import.meta.url).href
@@ -20,128 +22,138 @@ const openModal = () => {
 const closeModal = () => {
   isModalOpen.value = false
 }
+onMounted(() => {
+  let index = 0
+  const typeEffect = () => {
+    displayText.value = fullText.slice(0, index)
+    index++
+    if (index> fullText.length) {
+      setTimeout(() => {
+        index = 0
+        typeEffect()
+
+      }, 1000)
+    } else {
+      setTimeout(typeEffect, 100)
+    }
+
+  }
+  typeEffect()
+})
 </script>
 
 <template>
   <div class="home">
-    <div class="home-foto">
-      <img src="../assets/img/foto1.jpeg" class="img-foto1" alt="">
-      <p class="p-nome">Web Developer</p>
-      <p class="h1-nome">Hi! Daniele Ferreira Galvão</p>
-      <p class="p-descricao">Desenvolvedora de software com mais de 4 anos de experiência, atuando na manutenção de sistemas legados e no desenvolvimento de novas soluções. Especialista em back-end com PHP (Flight, Lumen, Laravel), Python (Flask, FastAPI, Django) e banco de dados MySQL e SQLite. No front-end, trabalhei com Vue.js, Quasar, HTML, CSS e JavaScript. Experiência em automação com Scrapy, conteinerização com Docker e controle de versão com Git. Comprometida com boas práticas de desenvolvimento, segurança e escalabilidade, estou sempre em busca de aprimoramento e novos desafios.</p>
-      <button class="btn btn-download" @click="downloadCvc">Download CV</button>
-      <button class=" btn btn-contato" @click="openModal">Contato</button>
-      <ModalContato :isOpen="isModalOpen" @close="closeModal" />
+    <div class="content">
+      <div class="left-side">
+        <img src="../assets/img/foto1.jpeg" class="img-foto1" alt="">        
+      </div>
+    
+      <div class="right-side">
+        <p class="p-nome">Web Developer</p>
+        <p class="h1-nome"> {{ displayText }} </p>
+        <p class="p-descricao">Desenvolvedora de software com mais de 4 anos de experiência, atuando na manutenção de sistemas legados e no desenvolvimento de novas soluções. Especialista em back-end com PHP (Flight, Lumen, Laravel), Python (Flask, FastAPI, Django) e banco de dados MySQL e SQLite. No front-end, trabalhei com Vue.js, Quasar, HTML, CSS e JavaScript. Experiência em automação com Scrapy, conteinerização com Docker e controle de versão com Git. Comprometida com boas práticas de desenvolvimento, segurança e escalabilidade, estou sempre em busca de aprimoramento e novos desafios.</p>
+        <div class="btn-container">
+          <button class="btn btn-download" @click="downloadCvc">Download CV</button>
+          <button class=" btn btn-contato" @click="openModal">Contato</button>
+        </div>
+        <ModalContato :isOpen="isModalOpen" @close="closeModal" />
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .home {
-    background-color: #000;
-    min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .content {
     display: flex;
-    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  .left-side {
+    flex:1;
+    background-color: #000;
+    display: flex;
     align-items: center;
-  
-    .home-foto {
-      background-color: #016961;
-      max-width: 600px;
-      width: 100%;
-      min-height: 100vh;
-      border: 1px solid #000;
-      padding: 10px;
-      padding-left: 300px;
-    }
+    justify-content: right;
   }
-  .img-foto1 {
- 
-    border-radius: 50%;
-    object-fit: cover;
-    margin-top: 50%;
-    margin-bottom: 15px;
-    transition: transform 0.3s ease;
-    clip-path: circle(45%);
-    shape-outside: circle(50%);
-    max-width: 1020px;
-
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-  
-  .h1-nome {
-    margin: 0;
-    position: fixed;
-    top: 41%;
-    left: 66%;
-    transform: translate(-50%, -50%);
-    font-family: sans-serif;
-    font-size: 45px;
-    text-shadow: 1px 1px 2px black, 0 0 25px rgb(0, 255, 191), 0 0 5px rgb(0, 139, 120);
-  }
-  .p-nome {
-    font-size: 18px;
-    margin: 0;
-    position: fixed;
-    top: 37%;
-    left: 55%;
-    transform: translate(-50%, -50%);
-
-  }
-  .p-descricao {
-    margin: 0;
-    position: fixed;
-    top: 54%;
-    left: 68%;
-    transform: translate(-50%, -50%);
-
-  }
-  .btn {
-   
-    padding: 14px 40px;
-    border-radius: 18px;
-    font-size: 16px;
-    &:hover {
-      box-shadow: 0 12px 16px 0 rgba(230, 218, 218, 0.24), 0 17px 50px 0 rgba(220, 240, 238, 0.19);
-    }
-    
-  }
-  .btn-download {
-    top: 78%;
-    left: 48%;
-    margin: 0;
-    position: fixed;    
-    transform: translate(-50%, -50%);
-  }
-  .btn-contato {
-    top: 78%;
-    left: 68%;
-    margin: 0;
-    position: fixed;    
-    transform: translate(-50%, -50%);
-  }
-
-  /* Responsividade */
-@media (max-width: 768px) {
-  .home {
-    padding: 10px;
-  }
-
-  .home-foto {
+  .right-side {
+    flex:2;
+    background-color: #016961;
+    color: #fff;
+    display: flex;
+    flex-direction : column;
+    align-items: left;
+    justify-content: center;
+    text-align: left;
     padding: 20px;
+    padding-left: 25px;
+  }
+}
+.img-foto1 {
+  width: 90%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+.h1-nome {
+  font-size: 2.5vw;
+  text-shadow: 1px 1px 2px black, 0 0 25px rgb(0, 255, 191), 0 0 5px rgb(0, 139, 120);
+}
+.p-nome {
+  font-size: 1.5vw;
+
+}
+.p-descricao {
+  font-size: 1vw;
+  max-width: 80%;
+}
+.btn-container {
+  display: flex;
+  gap: 20px;
+  margin-top:20px;
+}
+.btn {
+  padding: 14px 40px;
+  border-radius: 18px;
+  font-size: 16px;
+  background: #fff;
+  color: #016961;
+  border: none;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+  
+  &:hover {
+    box-shadow: 0 12px 16px rgba(230, 218, 218, 0.24), 0 17px 50px rgba(220, 240, 238, 0.19);
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .left-side, .right-side {
+    flex: none;
+    width: 100%;
+    height: 50%;
   }
 
   .h1-nome {
-    font-size: 20px;
+    font-size: 6vw;
   }
 
-  .p-descricao {
-    font-size: 13px;
-  }
-
-  .btn-container {
-    flex-direction: column;
+  .p-nome, .p-descricao {
+    font-size: 4vw;
   }
 }
 </style>

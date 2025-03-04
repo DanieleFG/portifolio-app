@@ -19,15 +19,15 @@ import 'primeicons/primeicons.css'
         <div class="modal">
             <button class="close-btn" @click="closeModal">X</button>
 
-            <h2>Modal</h2>
+            <p class="text-modal-titulo">Modal</p>
 
            
 
             <ul>
-                <li><i class="pi ml-1 pi-envelope" style="font-size: 1.5rem"></i> E-mail: daniele-fg@hotmail.com</li>
-                <li><i class="pi ml-1 pi-envelope" style="font-size: 1.5rem"></i> E-mail: danielefgjesus@gmail.com</li>
-                <li><i class="pi ml-1 pi-linkedin" style="font-size: 1.5rem"></i> Linkedin: <a href="https://www.linkedin.com/in/daniele-galvão-10ba00209" target="_blank">www.linkedin.com/in/daniele-galvão-10ba00209</a></li>
-                <li><i class="pi ml-1 pi-github" style="font-size: 1.5rem"></i> Git: <a href="https://github.com/DanieleFG" target="_blank">https://github.com/DanieleFG</a></li>
+                <li><i class="pi ml-1 pi-envelope" style="font-size: 1.5rem"></i> <span class="text-li"> E-mail: daniele-fg@hotmail.com</span></li>
+                <li><i class="pi ml-1 pi-envelope" style="font-size: 1.5rem"></i><span class="text-li"> E-mail: danielefgjesus@gmail.com</span></li>
+                <li><i class="pi ml-1 pi-linkedin" style="font-size: 1.5rem"></i><span class="text-li"> Linkedin: <a href="https://www.linkedin.com/in/daniele-galvão-10ba00209" target="_blank">www.linkedin.com/in/daniele-galvão-10ba00209</a></span></li>
+                <li><i class="pi ml-1 pi-github" style="font-size: 1.5rem"></i><span class="text-li"> Git: <a href="https://github.com/DanieleFG" target="_blank">https://github.com/DanieleFG</a></span></li>
     
             </ul>
         </div>
@@ -53,8 +53,8 @@ import 'primeicons/primeicons.css'
     border-radius: 8px;
     font-size:16px;
     text-align: center;
-    width: 600px;
-    height: 300px;
+    width: 800px;
+    height: 400px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
   }
   
@@ -70,7 +70,14 @@ import 'primeicons/primeicons.css'
   ul {
     list-style-type: none;
   }
+  .text-li {
+    font-size:25px;
+  }
   .ml-1 {
     margin: 5px;
+  }
+  .text-modal-titulo {
+    font-size: 50px;
+    padding-bottom: 10px;
   }
 </style>
