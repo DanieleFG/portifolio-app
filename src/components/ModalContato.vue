@@ -1,7 +1,12 @@
 <script setup>
-    import { defineProps, defineEmits } from "vue"
+    import { defineProps, defineEmits, ref } from "vue"    
+    import 'primeicons/primeicons.css'
 
-import 'primeicons/primeicons.css'
+    const emailHotmail = ref(import.meta.env.VITE_LINK_HOTMAIL)
+    const emailGmail = ref(import.meta.env.VITE_LINK_GMAIL)
+    const linkGit = ref(import.meta.env.VITE_LINK_GITHUB)
+    const linkLinkedin = ref(`https://${import.meta.env.VITE_LINK_LINKEDIN}`)
+    
 
 
     const props =  defineProps({
@@ -24,10 +29,10 @@ import 'primeicons/primeicons.css'
            
 
             <ul>
-                <li><i class="pi ml-1 pi-envelope" style="font-size: 1.5rem"></i> <span class="text-li"> E-mail: daniele-fg@hotmail.com</span></li>
-                <li><i class="pi ml-1 pi-envelope" style="font-size: 1.5rem"></i><span class="text-li"> E-mail: danielefgjesus@gmail.com</span></li>
-                <li><i class="pi ml-1 pi-linkedin" style="font-size: 1.5rem"></i><span class="text-li"> Linkedin: <a href="https://www.linkedin.com/in/daniele-galvão-10ba00209" target="_blank">www.linkedin.com/in/daniele-galvão-10ba00209</a></span></li>
-                <li><i class="pi ml-1 pi-github" style="font-size: 1.5rem"></i><span class="text-li"> Git: <a href="https://github.com/DanieleFG" target="_blank">https://github.com/DanieleFG</a></span></li>
+                <li><i class="pi ml-1 pi-envelope" style="font-size: 1.5rem"></i> <span class="text-li"> E-mail: {{ emailHotmail }}</span></li>
+                <li><i class="pi ml-1 pi-envelope" style="font-size: 1.5rem"></i><span class="text-li"> E-mail: {{ emailGmail }} </span></li>
+                <li><i class="pi ml-1 pi-linkedin" style="font-size: 1.5rem"></i><span class="text-li"> Linkedin: <a :href="linkLinkedin" target="_blank">{{ linkLinkedin }}</a></span></li>
+                <li><i class="pi ml-1 pi-github" style="font-size: 1.5rem"></i><span class="text-li"> Git: <a :href="linkGit" target="_blank">{{ linkGit }}</a></span></li>
     
             </ul>
         </div>
@@ -56,6 +61,7 @@ import 'primeicons/primeicons.css'
     width: 800px;
     height: 400px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
   }
   
   .close-btn {

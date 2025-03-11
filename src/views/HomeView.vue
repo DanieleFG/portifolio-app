@@ -2,15 +2,16 @@
 import { ref, onMounted } from "vue"
 import ModalContato from "../components/ModalContato.vue"
 
+let nome = import.meta.env.VITE_NAME_USUARIO
 const isModalOpen = ref(false)
 const displayText = ref("")
-const fullText = "Hi! Daniele Ferreira Galvão"
+const fullText = `Hi! I'm ${nome}`
 
 const downloadCvc = () => {
-  const pdfPath = new URL("../assets/DanieleGalvao-cv-2025.pdf", import.meta.url).href
+  const pdfPath = new URL("../assets/link-cv-2025.pdf", import.meta.url).href
   const link = document.createElement("a");
   link.href = pdfPath;
-  link.download = "DanieleGalvao-cv-2025.pdf";
+  link.download = "link-cv-2025.pdf";
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
