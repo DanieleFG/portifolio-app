@@ -1,12 +1,22 @@
 <script setup>
 import { ref, onMounted } from "vue"
 import ModalContato from "../components/ModalContato.vue"
+import PdfViewer from '../components/PdfViewer.vue';
 
 let nome = import.meta.env.VITE_NAME_USUARIO
 const isModalOpen = ref(false)
 const displayText = ref("")
-const fullText = `Hi! I'm ${nome}`
+const fullText = `${nome}`
+const terms = ['Web Developer', 'Full Stack']
+const index = ref(0)
+const nameCurrent = ref(terms[index.value])
+const isCvcOpen = ref(false)
+const pdfFile = ref("/link-cv-2025.pdf")
 
+function changeName() {
+  index.value = (index.value + 1) % terms.length
+  nameCurrent.value = terms[index.value]
+}
 const downloadCvc = () => {
   const pdfPath = new URL("../assets/link-cv-2025.pdf", import.meta.url).href
   const link = document.createElement("a");
@@ -22,6 +32,12 @@ const openModal = () => {
 }
 const closeModal = () => {
   isModalOpen.value = false
+}
+const openCvc = () => {
+  isCvcOpen.value = true
+}
+const closeCvc = () => {
+  isCvcOpen.value = false
 }
 onMounted(() => {
   let index = 0
@@ -40,6 +56,7 @@ onMounted(() => {
 
   }
   typeEffect()
+  // setInterval(changeName, 2000)
 })
 </script>
 
@@ -51,14 +68,18 @@ onMounted(() => {
       </div>
     
       <div class="right-side">
-        <p class="p-nome">Web Developer</p>
-        <p class="h1-nome"> {{ displayText }} </p>
+        <p class="p-nome"> {{ nameCurrent }} </p>
+        <p class="h1-nome"> Hi! I'm {{ displayText }} </p>
+        <div class="plate">
+        </div>
         <p class="p-descricao">Desenvolvedora de software com mais de 4 anos de experiência, atuando na manutenção de sistemas legados e no desenvolvimento de novas soluções. Especialista em back-end com PHP (Flight, Lumen, Laravel), Python (Flask, FastAPI, Django) e banco de dados MySQL e SQLite. No front-end, trabalhei com Vue.js, Quasar, HTML, CSS e JavaScript. Experiência em automação com Scrapy, conteinerização com Docker e controle de versão com Git. Comprometida com boas práticas de desenvolvimento, segurança e escalabilidade, estou sempre em busca de aprimoramento e novos desafios.</p>
         <div class="btn-container">
-          <button class="btn btn-download" @click="downloadCvc">Download CV</button>
+          <button class="btn btn-download" @click="openCvc">Abrir CV</button>
+          <!-- <button class="btn btn-download" @click="downloadCvc">Download CV</button> -->
           <button class=" btn btn-contato" @click="openModal">Contato</button>
         </div>
         <ModalContato :isOpen="isModalOpen" @close="closeModal" />
+        <PdfViewer v-if="isCvcOpen" :isOpen="isCvcOpen" @close="closeCvc" />
       </div>
     </div>
   </div>
@@ -108,11 +129,33 @@ onMounted(() => {
 }
 .h1-nome {
   font-size: 2.5vw;
+  font-family: 'Courier New', monospace;
   text-shadow: 1px 1px 2px black, 0 0 25px rgb(0, 255, 191), 0 0 5px rgb(0, 139, 120);
 }
-.p-nome {
-  font-size: 1.5vw;
 
+.p-nome {
+  font-weight: normal;
+
+  //text-align: center;
+  //background-color:#ffffff;
+  //color: #016961;
+  font-size: 1.5vw;
+ // animation: rotacaoPlaca 2s ease-in-out infinite; 
+
+}
+@keyframes rotacaoPlaca {
+  0% {
+      transform: rotateX(0deg);
+  }
+
+  50% {
+      transform: rotateX(90deg);
+      opacity: 0;
+  }
+  100% {
+      transform: rotateX(0deg);
+      opacity: 1;
+  }
 }
 .p-descricao {
   font-size: 1vw;

@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm install -g @vue/cli && npm install
 RUN npm install -D sass-embedded
 RUN npm install primeicons
-
+RUN npm i pdf-vue3
 
 # Copia os arquivos do projeto para o container
 COPY . .
